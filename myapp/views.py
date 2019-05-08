@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Login
+from .form import LoginForm
 import datetime
 
 def home(request):
@@ -15,3 +16,8 @@ def listagem(request):
     data['contas'] = Login.objects.all()
 
     return render(request, 'myapp/listagem.html', data)
+
+def novo_Login(request):
+    form = LoginForm()
+
+    return render(request, 'myapp/form.html', {'form':form})
