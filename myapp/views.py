@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Login
 from .form import LoginForm
 import datetime
@@ -18,6 +18,20 @@ def listagem(request):
     return render(request, 'myapp/listagem.html', data)
 
 def novo_Login(request):
-    form = LoginForm()
+    form = LoginForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('listagem')
+
+    return render(request, 'myapp/form.html', {'form':form})
+
+def atualizar_Login(request, pk):
+    login = Login.objects.get(pk=pk)
+    form = LoginForm(request.POST or None, instance=login)
+
+    if form.is_valid():
+        form.save()
+        return redirect('listagem')
 
     return render(request, 'myapp/form.html', {'form':form})
