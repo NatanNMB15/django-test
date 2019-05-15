@@ -34,4 +34,9 @@ def atualizar_Login(request, pk):
         form.save()
         return redirect('listagem')
 
-    return render(request, 'myapp/form.html', {'form':form})
+    return render(request, 'myapp/form.html', {'form':form, 'login':login})
+
+def excluir_Login(request, pk):
+    login = Login.objects.get(pk=pk)
+    login.delete()
+    return redirect('listagem')

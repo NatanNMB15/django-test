@@ -15,6 +15,9 @@
         {{ form.as_p }}
 
         <button type="submit">Salvar</button>
+        {% if login %}
+            <a href="{% url 'excluir_Login' login.id %}">Excluir</a>
+        {% endif %}
     </form>
 
 </body>
